@@ -197,7 +197,7 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
         Map<Long,String> ingredients = findIngredientsAsMap(db);
 
         //first get all recipes will null ingredients
-        if (recipeCursor.moveToFirst()) {
+        if (recipeCursor != null) {
             while (recipeCursor.moveToNext()) {
                 Recipe r = new Recipe();
                 r.setID(recipeCursor.getLong(0));
@@ -207,7 +207,7 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
                 Cursor ingCursor = getIngredientsForRecipeCursor(r.getID());
                 List<Ingredient> ingList = new ArrayList<Ingredient>();
 
-                if (ingCursor.moveToFirst()) {
+                if (ingCursor != null) {
                     while (ingCursor.moveToNext()) {
                         long id = ingCursor.getLong(0);
                         String ingName = ingredients.get(id);

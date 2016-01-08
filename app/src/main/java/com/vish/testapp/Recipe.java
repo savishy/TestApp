@@ -50,6 +50,9 @@ public class Recipe {
     }
 
     public String asString() {
-        return "id:" + id + ", name:" + recipeName + ", ingredients: " + Arrays.asList(this.ingredients);
+        String retVal = "id:" + id + ", name:" + recipeName + ", ingredients: ";
+        for (Ingredient i : ingredients)
+            retVal += i.getName() + ",";
+        return retVal;
     }
 }

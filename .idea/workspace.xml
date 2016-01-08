@@ -17,12 +17,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85cbd592-fcf7-4681-8fe4-3aa40626f428" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Common.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Common.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/HomeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/HomeActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Ingredient.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Ingredient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Recipe.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Recipe.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/RecipeDbHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/vish/testapp/RecipeDbHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TestApp.iws" />
@@ -97,15 +93,15 @@
       <file leaf-file-name="RecipeDbHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vish/testapp/RecipeDbHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6758475">
-              <caret line="221" column="40" selection-start-line="221" selection-start-column="40" selection-end-line="221" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.9809322">
+              <caret line="220" column="70" selection-start-line="220" selection-start-column="70" selection-end-line="220" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2497#2498#0" expanded="true" />
                 <element signature="e#2566#2567#0" expanded="true" />
                 <element signature="e#7476#7489#0" expanded="true" />
                 <element signature="e#7913#7921#0" expanded="true" />
-                <element signature="e#8516#8528#0" expanded="true" />
+                <element signature="e#8510#8522#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -115,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Recipe.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="103" selection-start-line="52" selection-start-column="103" selection-end-line="52" selection-end-column="103" />
+              <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
               <folding>
                 <element signature="e#627#628#0" expanded="true" />
                 <element signature="e#655#656#0" expanded="true" />
@@ -2130,7 +2126,7 @@
             <element signature="e#2566#2567#0" expanded="true" />
             <element signature="e#7476#7489#0" expanded="true" />
             <element signature="e#7913#7921#0" expanded="true" />
-            <element signature="e#8516#8528#0" expanded="true" />
+            <element signature="e#8510#8522#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2273,7 +2269,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vish/testapp/Recipe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="103" selection-start-line="52" selection-start-column="103" selection-end-line="52" selection-end-column="103" />
+          <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
           <folding>
             <element signature="e#627#628#0" expanded="true" />
             <element signature="e#655#656#0" expanded="true" />
@@ -2283,15 +2279,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vish/testapp/RecipeDbHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6758475">
-          <caret line="221" column="40" selection-start-line="221" selection-start-column="40" selection-end-line="221" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.9809322">
+          <caret line="220" column="70" selection-start-line="220" selection-start-column="70" selection-end-line="220" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2497#2498#0" expanded="true" />
             <element signature="e#2566#2567#0" expanded="true" />
             <element signature="e#7476#7489#0" expanded="true" />
             <element signature="e#7913#7921#0" expanded="true" />
-            <element signature="e#8516#8528#0" expanded="true" />
+            <element signature="e#8510#8522#0" expanded="true" />
           </folding>
         </state>
       </provider>
