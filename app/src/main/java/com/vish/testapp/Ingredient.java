@@ -4,7 +4,7 @@ package com.vish.testapp;
  * Created by vish on 1/7/2016.
  */
 public class Ingredient {
-    private int id;
+    private long id;
     private String name;
 
     public Ingredient() {
@@ -14,11 +14,11 @@ public class Ingredient {
         this.name = name;
     }
 
-    public void setID(int id) {
+    public void setID(long id) {
         this.id = id;
     }
 
-    public int getID() {
+    public long getID() {
         return this.id;
     }
 

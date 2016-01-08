@@ -22,6 +22,7 @@ import android.widget.SimpleCursorAdapter;
  * http://stackoverflow.com/questions/10644914/android-expandablelistview-and-sqlite-database
  * https://thinkandroid.wordpress.com/2010/01/09/simplecursoradapters-and-listviews/
  * http://stackoverflow.com/questions/18069678/how-to-use-asynctask-to-display-a-progress-bar-that-counts-down
+ * http://stackoverflow.com/questions/3105080/output-values-found-in-cursor-to-logcat-android
  */
 public class HomeActivity extends AppCompatActivity {
 
@@ -79,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
     private void storeCursorDataIntoListView() {
         this.startManagingCursor(cursor);
         cursor.moveToFirst();
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        Common.printCursor(cursor);
         ListView lv = (ListView) this.findViewById(R.id.recipeListView);
         RecipeListViewAdapter adapter = new RecipeListViewAdapter(this,
                 R.layout.list_item,
@@ -119,9 +120,9 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Object... params) {
             Log.d(TAG, this.getClass().getSimpleName() + " doInBackground()");
-            thisDb = dbHelper.getWritableDatabase();
+            thisDb = dbHelper.openWritableDbWithForeignKeyConstraint();
             publishProgress(1);
-            dbHelper.createInitialRecipes(thisDb);
+            dbHelper.initializeDatabase(thisDb);
             publishProgress(2);
             if (thisDb == null || !thisDb.isOpen()) {
                 Log.w(TAG, this.getClass().getSimpleName() + " data-base not created or not opened!");
@@ -129,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
             }
             else {
                 Log.w(TAG, this.getClass().getSimpleName() + " database isOpen() " + thisDb.isOpen());
-                cursor = dbHelper.fetchGroup(thisDb);
+                cursor = dbHelper.getRecipesCursor(thisDb);
                 publishProgress(3);
                 return 0;
             }
