@@ -83,6 +83,9 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * populate {@link R.id#recipeListView} with recipes obtained from cursor.
+     */
     private void storeCursorDataIntoListView() {
         this.startManagingCursor(cursor);
         cursor.moveToFirst();
