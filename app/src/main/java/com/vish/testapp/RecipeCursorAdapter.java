@@ -29,7 +29,7 @@ public class RecipeCursorAdapter extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return LayoutInflater.from(context).inflate(R.layout.layout_ingredient,viewGroup,false);
+        return LayoutInflater.from(context).inflate(R.layout.layout_token,viewGroup,false);
     }
 
     /**
@@ -41,7 +41,7 @@ public class RecipeCursorAdapter extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView ingredientTv = (TextView) view.findViewById(R.id.lblIngredient);
+        TextView ingredientTv = (TextView) view.findViewById(R.id.lblToken);
         ingredientTv.setText(cursor.getString(cursor.getColumnIndexOrThrow("name")));
     }
 }

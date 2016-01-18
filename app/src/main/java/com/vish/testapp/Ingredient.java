@@ -1,14 +1,21 @@
 package com.vish.testapp;
 
+import java.io.Serializable;
+
 /**
+ * Represents a single ingredient.
  * Created by vish on 1/7/2016.
  */
-public class Ingredient {
+public class Ingredient implements Serializable {
     private long id;
     private String name;
 
     public Ingredient() {
+    }
 
+    public Ingredient(long id,String name) {
+        this.id = id;
+        this.name = name;
     }
     public Ingredient(String name) {
         this.name = name;
@@ -29,4 +36,8 @@ public class Ingredient {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public String toString() { return name; }
+
 }
