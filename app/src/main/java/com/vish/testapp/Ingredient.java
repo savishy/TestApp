@@ -3,6 +3,7 @@ package com.vish.testapp;
 import java.io.Serializable;
 
 /**
+ * Represents a single ingredient.
  * Created by vish on 1/7/2016.
  */
 public class Ingredient implements Serializable {
@@ -10,7 +11,11 @@ public class Ingredient implements Serializable {
     private String name;
 
     public Ingredient() {
+    }
 
+    public Ingredient(long id,String name) {
+        this.id = id;
+        this.name = name;
     }
     public Ingredient(String name) {
         this.name = name;
@@ -33,7 +38,6 @@ public class Ingredient implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return this.name;
-    }
+    public String toString() { return name; }
+
 }

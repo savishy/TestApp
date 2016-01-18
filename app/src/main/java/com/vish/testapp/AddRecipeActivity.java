@@ -25,10 +25,6 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
     protected SQLiteDatabase thisDb;
     protected Cursor cursor;
     protected ProgressDialog progress;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +46,12 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
 
         //initialize TokenAutocompleteView
         completionView = (IngredientsCompletionView) findViewById(R.id.searchView);
-        ArrayAdapter<String> adp = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, new String[]{"ing1","ing2","ing3"});
+        ArrayAdapter<Ingredient> adp = new ArrayAdapter<Ingredient>(this,
+                android.R.layout.simple_dropdown_item_1line, new Ingredient[]{
+                new Ingredient("ing1"),
+                new Ingredient("ing2"),
+                new Ingredient("ing3")
+        });
         completionView.setAdapter(adp);
         completionView.setTokenListener(this);
 
