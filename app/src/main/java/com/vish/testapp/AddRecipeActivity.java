@@ -12,15 +12,13 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.MultiAutoCompleteTextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.tokenautocomplete.TokenCompleteTextView;
 
 /**
  * References:
  * http://sampleprogramz.com/android/multiautocompletetextview.php
  */
-public class AddRecipeActivity extends AppCompatActivity {
+public class AddRecipeActivity extends AppCompatActivity implements TokenCompleteTextView.TokenListener {
 
     private static String TAG = "AddRecipeActivity";
     protected RecipeDbHelper dbHelper;
@@ -34,10 +32,14 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        IngredientsCompletionView completionView;
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+//
         //initialize database
         Log.d(TAG, this.getClass().getSimpleName() + " onCreate()");
         dbHelper = new RecipeDbHelper(this);
@@ -45,14 +47,27 @@ public class AddRecipeActivity extends AppCompatActivity {
         progress.setMessage("Loading database...");
         executeAsync();
 
-        MultiAutoCompleteTextView multiAutoCompleteTextView
-                = (MultiAutoCompleteTextView) findViewById(R.id.ingredientsAutocompleteTextView);
-        multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        multiAutoCompleteTextView.setThreshold(1);
 
+        //initialize TokenAutocompleteView
+        completionView = (IngredientsCompletionView) findViewById(R.id.searchView);
         ArrayAdapter<String> adp = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, new String[]{"ing1","ing2","ing3"});
-        multiAutoCompleteTextView.setAdapter(adp);
+        completionView.setAdapter(adp);
+        completionView.setTokenListener(this);
+
+
+        /**
+         * MultiAutoCompleteTextView Approach. Being deprecated.
+         */
+//
+//        MultiAutoCompleteTextView multiAutoCompleteTextView
+//                = (MultiAutoCompleteTextView) findViewById(R.id.ingredientsAutocompleteTextView);
+//        multiAutoCompleteTextView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+//        multiAutoCompleteTextView.setThreshold(1);
+//
+//        ArrayAdapter<String> adp = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_dropdown_item_1line, new String[]{"ing1","ing2","ing3"});
+//        multiAutoCompleteTextView.setAdapter(adp);
 
 //        Common.printCursor(cursor);
 //        RecipeCursorAdapter rcAdapter = new RecipeCursorAdapter(this,cursor,0);
@@ -77,6 +92,16 @@ public class AddRecipeActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onTokenAdded(Object o) {
+        Log.d(TAG,"Added Token:" + o);
+    }
+
+    @Override
+    public void onTokenRemoved(Object o) {
+        Log.d(TAG,"Removed Token:" + o);
     }
 
     class DbAsync extends AsyncTask<Object, Integer, Integer> {
