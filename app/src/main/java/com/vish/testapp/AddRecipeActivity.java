@@ -9,10 +9,17 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 
 import com.tokenautocomplete.TokenCompleteTextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * References:
@@ -25,6 +32,26 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
     protected SQLiteDatabase thisDb;
     protected Cursor cursor;
     protected ProgressDialog progress;
+    /** list of ingredients chosen by user. Gets updated by
+     * {@link #onTokenAdded(Object)} and
+     * {@link #onTokenRemoved(Object)}
+     */
+    List<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+    /**
+     * List of available ingredients.
+     */
+    List<Ingredient> availableIngredients = new ArrayList<Ingredient>();
+
+    /**
+     * an enum that decides the Async Database Task to execute.
+     */
+    private static enum DbTasks {
+        getIngredients,
+        addRecipe,
+        addIngredient
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +68,11 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
         dbHelper = new RecipeDbHelper(this);
         progress = new ProgressDialog(this);
         progress.setMessage("Loading database...");
-        executeAsync();
+        //execute async task to get ingredients
+        executeAsyncTask(DbTasks.getIngredients);
 
 
-        //initialize TokenAutocompleteView
+        //initialize TokenAutocompleteView from ArrayAdapter
         completionView = (IngredientsCompletionView) findViewById(R.id.searchView);
         ArrayAdapter<Ingredient> adp = new ArrayAdapter<Ingredient>(this,
                 android.R.layout.simple_dropdown_item_1line, new Ingredient[]{
@@ -52,8 +80,10 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
                 new Ingredient("ing2"),
                 new Ingredient("ing3")
         });
+
         completionView.setAdapter(adp);
         completionView.setTokenListener(this);
+
 
 
         /**
@@ -76,11 +106,13 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
 
 
     /**
-     * execute the asynctask for database access.
+     * execute {@link com.vish.testapp.AddRecipeActivity.DbAsync} task
+     * for database access.
+     * @param task
      */
-    private void executeAsync() {
-        Log.d(TAG, this.getClass().getSimpleName() + ".executeAsync()");
-        DbAsync async = new DbAsync(progress);
+    private void executeAsyncTask(DbTasks task) {
+        Log.d(TAG, this.getClass().getSimpleName() + ".executeAsyncTask() " + task);
+        DbAsync async = new DbAsync(progress,task);
         AsyncTask t = async.execute();
     }
 
@@ -94,21 +126,61 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
         super.onStop();
     }
 
+
+
     @Override
     public void onTokenAdded(Object o) {
-        Log.d(TAG,"Added Token:" + o);
+        Log.d(TAG, "Added Token:" + o);
+        ingredients.add((Ingredient) o);
     }
 
     @Override
     public void onTokenRemoved(Object o) {
         Log.d(TAG,"Removed Token:" + o);
+        ingredients.remove((Ingredient) o);
+
     }
 
+    /**
+     * add recipe with checks. Is tied to button
+     * {@link R.id#btnSave}
+     * @param view
+     */
+    public void addRecipe(View view) {
+        EditText recipeTitle = (EditText) findViewById(R.id.recipeTitle);
+
+        String ingDisplay = new String();
+        for (Ingredient i : ingredients) {
+            ingDisplay += i;
+        }
+
+        Common.showSimpleDialog(AddRecipeActivity.this, "Debug", "Add recipe with title: " +
+                        recipeTitle.getText() +
+                        " and ingredients: " +
+                        ingDisplay
+        );
+
+        //execute DB Async Task.
+
+    }
+
+
+    /**
+     * an AsyncTask to both read and write to database.
+     */
     class DbAsync extends AsyncTask<Object, Integer, Integer> {
         private String TAG = "DbAsync";
+        private DbTasks task;
         private ProgressDialog progress;
 
-        public DbAsync(ProgressDialog p) {
+        /**
+         *
+         * @param p a progress dialog
+         * @param task a {@link com.vish.testapp.AddRecipeActivity.DbTasks} object that signifies the
+         *             db task to perform.
+         */
+        public DbAsync(ProgressDialog p,DbTasks task) {
+            this.task = task;
             this.progress = p;
         }
 
@@ -128,8 +200,19 @@ public class AddRecipeActivity extends AppCompatActivity implements TokenComplet
                 return 1;
             } else {
                 Log.w(TAG, this.getClass().getSimpleName() + " database isOpen() " + thisDb.isOpen());
-                dbHelper.findIngredientsAsMap(thisDb);
-                cursor = dbHelper.getIngredientsCursor(thisDb);
+
+                //perform the task needed
+                switch (task) {
+                    case getIngredients:
+                        Log.d(TAG,"getIngredients");
+                        cursor = dbHelper.getIngredientsCursor(thisDb);
+                        availableIngredients = dbHelper.getIngredientsAsArrayList(cursor);
+                        break;
+                    case addRecipe:
+
+                        break;
+                    default: Log.w(TAG,task + " unsupported");
+                }
                 publishProgress(3);
                 return 0;
             }

@@ -32,7 +32,7 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
     private static final String RECIPE_TABLE_NAME = "recipelist",
                                 INGREDIENTS_TABLE_NAME="ingredients",
                                 INGPERRECIPE_TABLE_NAME="recipe_ingredients";
-    private static final String KEY_ID = "_id", KEY_ING_ID = "ing_id", KEY_REC_ID = "recipe_id", KEY_NAME = "name";
+    public static final String KEY_ID = "_id", KEY_ING_ID = "ing_id", KEY_REC_ID = "recipe_id", KEY_NAME = "name";
 
     private static final String RECIPE_TABLE_CREATE =
             "CREATE TABLE IF NOT EXISTS " + RECIPE_TABLE_NAME + " (" + KEY_ID + " INTEGER PRIMARY KEY NOT NULL, " + KEY_NAME + " TEXT);";
@@ -178,6 +178,24 @@ public class RecipeDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    public List<Ingredient> getIngredientsAsArrayList(Cursor ingCursor) {
+        Common.printCursor(ingCursor);
+        List<Ingredient> ingredients = new ArrayList<Ingredient>();
+        if (ingCursor.moveToFirst()) {
+            while (ingCursor.moveToNext()) {
+                Ingredient i = new Ingredient(ingCursor.getLong(0),ingCursor.getString(1));
+                ingredients.add(i);
+                Log.d(TAG,i.getName());
+            }
+        }
+        return ingredients;
+    }
+
+    /**
+     * @deprecated is this really needed?
+     * @param db
+     * @return
+     */
     public Map<Long,String> findIngredientsAsMap (SQLiteDatabase db) {
         Cursor ingCursor = getIngredientsCursor(db);
         Map<Long,String> ingredient = new HashMap<Long,String>();

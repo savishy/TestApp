@@ -42,6 +42,6 @@ public class RecipeCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView ingredientTv = (TextView) view.findViewById(R.id.lblToken);
-        ingredientTv.setText(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+        ingredientTv.setText(cursor.getString(cursor.getColumnIndexOrThrow(RecipeDbHelper.KEY_NAME)));
     }
 }

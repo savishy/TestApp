@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         RecipeListViewAdapter adapter = new RecipeListViewAdapter(this,
                 R.layout.list_item,
                 cursor,
-                new String[]{"_id","name"},
+                new String[]{RecipeDbHelper.KEY_ID,RecipeDbHelper.KEY_NAME},
                 new int[]{R.id.lblListItemId,R.id.lblListItem},
                 SimpleCursorAdapter.FLAG_AUTO_REQUERY);
 
